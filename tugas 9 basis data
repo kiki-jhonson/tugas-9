@@ -1,0 +1,500 @@
+<?php 
+session_start();
+require 'koneksi.php';
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+?>
+
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pengelolaan Kas</title>
+
+        <!-- BOOTSTRAP STYLES-->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- FONTAWESOME STYLES-->
+        <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- GOOGLE FONTS-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php"><small>Pengelolaan Kas</small></a>
+                </div>
+                <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;">Date :
+                    <?php date_default_timezone_set('Asia/Jakarta');
+echo date('d-m-Y'); ?> &nbsp; &nbsp; <a href="logout.php" class="btn btn-danger square-btn-adjust" title="Logout">Keluar</a> </div>
+            </nav>
+            <!-- /. NAV TOP  -->
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        <li class="text-center">
+                            <img src="assets/img/find_user2.png" class="user-image img-responsive" />
+                        </li>
+
+                        <li>
+                            <a href="home.php"><i class="glyphicon glyphicon-home
+"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="?page=masuk"><i class="glyphicon glyphicon-floppy-save
+"></i> Kas Masuk</a>
+                        </li>
+                        <li>
+                            <a href="?page=keluar"><i class="glyphicon glyphicon-floppy-open
+"></i> Kas Keluar</a>
+                        </li>
+                        <li>
+                            <a href="?page=rekap"><i class="glyphicon glyphicon-tasks
+"></i> Rekapitulasi Kas</a>
+                        </li>
+                        <li>
+                            <a href="?page=user"><i class="glyphicon glyphicon-user
+"></i> Support</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- /. NAV SIDE  -->
+            <div id="page-wrapper">
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <?php
+
+                        $page = $_GET['page'];
+                        $aksi = $_GET['aksi'];
+
+                        if($page == "masuk") {
+                            if($aksi =="") {
+                                include 'page/kas_masuk/masuk.php';
+                            } if($aksi =="hapus") {
+                                include 'page/kas_masuk/hapus.php';
+                            }
+                        } elseif ($page == "keluar") {
+                            if($aksi =="") {
+                                include 'page/kas_keluar/keluar.php';
+                            } if($aksi =="hapus") {
+                               include 'page/kas_keluar/hapus.php';
+                            }
+                        } elseif ($page == "rekap") {
+                            if($aksi =="") {
+                                include 'page/rekap/rekap.php';
+                            }
+                        } elseif ($page == "user") {
+                            if($aksi =="") {
+                                include 'page/user/user.php';
+                            }
+                        } elseif ($page == "") {                           
+                                include 'dashboard.php';
+                            }                       
+                     ?>
+
+                        </div>
+                    </div>
+                    <!-- /. ROW  -->
+                    <hr />
+
+                </div>
+                <!-- /. PAGE INNER  -->
+            </div>
+            <!-- /. PAGE WRAPPER  -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="copyright">
+                    Copyright © 2018 All rights reserved. Template by <a href="http://binarycart.com/">Binary Admin</a>
+                    <br> Developed By <a href="https://web.facebook.com/Ions.Revolutionz" target="_blank"><b>Ion's</b></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- /. WRAPPER  -->
+        <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+        <!-- JQUERY SCRIPTS -->
+        <script src="assets/js/jquery-1.10.2.js"></script>
+        <!-- BOOTSTRAP SCRIPTS -->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!-- METISMENU SCRIPTS -->
+        <script src="assets/js/jquery.metisMenu.js"></script>
+        <!-- CUSTOM SCRIPTS -->
+        <script src="assets/js/custom.js"></script>
+        <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+        <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#dataTables-example').dataTable();
+            });
+        </script>
+        <!-- CUSTOM SCRIPTS -->
+        <script src="assets/js/custom.js"></script>
+
+    </body>
+
+    </html>
+<?php 
+require 'login.php';
+?>
+
+
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 19 Agu 2018 pada 11.59
+-- Versi Server: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `kas`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kas`
+--
+
+CREATE TABLE `kas` (
+  `kode` int(11) NOT NULL,
+  `keterangan` varchar(300) NOT NULL,
+  `tgl` date NOT NULL,
+  `jumlah` int(10) NOT NULL,
+  `jenis` varchar(20) NOT NULL,
+  `keluar` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kas`
+--
+
+INSERT INTO `kas` (`kode`, `keterangan`, `tgl`, `jumlah`, `jenis`, `keluar`) VALUES
+(1165, 'test keluar', '2018-08-19', 0, 'keluar', 25000),
+(2165, 'test masuk', '2018-08-19', 50000, 'masuk', 0),
+(2166, 'test masuk 2', '2018-08-19', 30000, 'masuk', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_user`
+--
+
+CREATE TABLE `tb_user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `level` varchar(100) NOT NULL,
+  `foto` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `kas`
+--
+ALTER TABLE `kas`
+  ADD PRIMARY KEY (`kode`);
+
+--
+-- Indexes for table `tb_user`
+--
+ALTER TABLE `tb_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `kas`
+--
+ALTER TABLE `kas`
+  MODIFY `kode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2169;
+--
+-- AUTO_INCREMENT for table `tb_user`
+--
+ALTER TABLE `tb_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$name = "kas";
+
+$koneksi = mysqli_connect($host,  $user,  $pass) or die("Koneksi ke database gagal!");
+mysqli_select_db($koneksi, $name) or die("Tidak ada database yang dipilih!");
+?>
+<?php
+session_start();
+if(isset($_SESSION['username'])) {
+    header("Location: home.php");
+    die();
+}
+?>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <!-- Required meta tags-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="au theme template">
+        <meta name="author" content="Hau Nguyen">
+        <meta name="keywords" content="au theme template">
+
+        <!-- Title Page-->
+        <title>Login</title>
+
+        <link rel="stylesheet" href="alert/css/sweetalert.css">
+
+        <!-- Fontfaces CSS-->
+        <link href="css/font-face.css" rel="stylesheet" media="all">
+        <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+        <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+        <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+        <!-- Bootstrap CSS-->
+        <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+        <!-- Vendor CSS-->
+        <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+        <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+        <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+        <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+        <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+        <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+        <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+        <!-- Main CSS-->
+        <link href="css/theme.css" rel="stylesheet" media="all">
+
+    </head>
+
+    <body class="animsition">
+        <div class="page-wrapper">
+            <div class="page-content--bge5">
+                <div class="container">
+                    <div class="login-wrap">
+                        <div class="login-content">
+                            <div class="login-logo">
+                                <h1>Login</h1>
+                            </div>
+                            <div class="login-form">
+                                <form action="ceklogin.php" method="post">
+                                    <div class="form-group">
+                                        <label><b>Nama Pengguna</b></label>
+                                        <input class="au-input au-input--full" type="text" name="username" placeholder="Username ">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>Kata Sandi</b></label>
+                                        <input class="au-input au-input--full" type="password" name="password" placeholder="Password ">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <span>
+                                        <center>
+                                        <button class="btn btn-md btn-outline-danger" type="reset">Reset&nbsp;&nbsp;</button>
+                                    </span> &nbsp; &nbsp;
+                                        <span>
+                                        <button class="btn btn-md btn-outline-primary" type="submit">Masuk&nbsp;</button>
+                                        </center>
+                                    </span>
+                                    </div>
+                                </form>
+                                <div class="register-link">
+                                    <br>
+                                    <p>Sistem Informasi Pengelolaan Kas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Jquery JS-->
+        <script src="vendor/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap JS-->
+        <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <!-- Vendor JS       -->
+        <script src="vendor/slick/slick.min.js">
+        </script>
+        <script src="vendor/wow/wow.min.js"></script>
+        <script src="vendor/animsition/animsition.min.js"></script>
+        <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+        </script>
+        <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="vendor/counter-up/jquery.counterup.min.js">
+        </script>
+        <script src="vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+        <script src="vendor/select2/select2.min.js">
+        </script>
+
+        <!-- Main JS-->
+        <script src="js/main.js"></script>
+
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script src="alert/js/sweetalert.min.js"></script>
+        <script src="alert/js/qunit-1.18.0.js"></script>
+
+    </body>
+
+    </html>
+    <!-- end document-->
+<?php
+session_start();
+$_SESSION = [];
+session_unset();
+session_destroy();
+
+header("Location: login.php");
+exit;
+?>
+<?php
+session_start();
+if(isset($_SESSION['username'])) {
+    header("Location: home.php");
+    die();
+}
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+include 'koneksi.php';
+
+$username=$_POST['username'];
+$password=$_POST['password'];
+
+$query="select * from tb_user where username='$username' and password='$password'";
+$hasil=mysqli_query($koneksi, "$query");
+
+$kode = mysqli_fetch_array($hasil);
+$cek=mysqli_num_rows($hasil);
+
+if ($cek==1){
+$_SESSION['username']=$kode['username'];
+$_SESSION['password']=$kode['password'];
+
+    if ($kode) {
+        header("Location: home.php");
+    }    
+} else { 
+	?>
+		<script>
+		alert('Username atau Password Salah !!');
+		document.location.href = 'login.php';
+		</script>
+	<?php 
+}
+
+?>
+
+
+<?php 
+if(!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    die();
+}
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+
+$sql = mysqli_query($koneksi, "SELECT * FROM kas");
+while($data=mysqli_fetch_assoc($sql)) {
+
+    $jml = $data['jumlah'];
+    $total_masuk = $total_masuk+$jml;
+
+    $jml_keluar = $data['keluar'];
+    $total_keluar = $total_keluar+$jml_keluar;
+
+    $total = $total_masuk-$total_keluar;
+}
+?>
+
+    <marquee behavior="" direction="" style="font-size: 19px; color: maroon;">Selamat Datang Di Sistem Informasi Pengelolaan Kas </marquee>
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Halaman Utama</h1>
+                <h4>Selamat Datang <b><?php echo ucwords($_SESSION['username']); ?></b></h4>
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-green set-icon">
+                    <i class="glyphicon glyphicon-floppy-save"></i>
+                </span>
+                    <div class="text-box">
+                        <p class="main-text">
+                            <?php echo "Rp. " . number_format($total_masuk); ?>,-</p>
+                        <p class="text-muted">Total Kas Masuk</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-red set-icon">
+                    <i class="glyphicon glyphicon-floppy-open"></i>
+                </span>
+                    <div class="text-box">
+                        <p class="main-text">
+                            <?php echo "Rp. " . number_format($total_keluar); ?>,-</p>
+                        <p class="text-muted">Total Kas Keluar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="panel panel-back noti-box">
+                    <span class="icon-box bg-color-blue set-icon">
+                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                </span>
+                    <div class="text-box">
+                        <p class="main-text">
+                            <?php echo "Rp. " . number_format($total); ?>,-</p>
+                        <p class="text-muted">Saldo Akhir</p>
+                    </div>
+                </div>
+            </div>
